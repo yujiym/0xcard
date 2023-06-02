@@ -1,8 +1,6 @@
 {
-  "extends": "tsconfig/nextjs.json",
-  "compilerOptions": {
-    "plugins": [{ "name": "next" }]
-  },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "extends": "tsconfig/contract.json",
+  "exclude": ["dist", "node_modules"],
+  "include": ["./test", "./src", "./scripts"],
+  "files": ["./hardhat.config.ts"]
 }
