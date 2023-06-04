@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- variables --- */
+:root {
+  --c-ink: #3F51B5; /*#003F8E; #002b59 #003F8E #3247BC; */
+  --c-paper: #FEFDF9;
+  --c-black: #280448;
+  --c-neon-pink: #ffa2e6;
+  --c-neon-orange: #ff6700;
+  --c-neon-yellow: #fff88f;
+  --c-neon-green: #a5f439;
+}
+
+html {
+  background: var(--c-paper);
+  color: var(--c-ink);
+}
+
+[data-theme="dark"] {
+  background: var(--c-ink);
+  color: var(--c-paper);
+}
+
+body {
+  @apply font-sans;
+}
+
+::selection {
+  background: var(--c-neon-yellow);
+}
+
+.highlight {
+  display: inline-block;
+  background: linear-gradient(
+    104deg,
+    rgba(255,103,0,0) 0.9%,
+    rgba(255,103,0,1.25) 2.4%,
+    rgba(255,103,0,0.5) 5.8%,
+    rgba(255,103,0,0.1) 93%,
+    rgba(255,103,0,0.7) 96%,
+    rgba(255,103,0,0) 98%
+    ),
+  linear-gradient(
+    183deg,
+    rgba(255,248,143,0) 0%,
+    rgba(255,248,143,0.3) 7.9%,
+    rgba(255,248,143,0)
+    15%);
+  padding: 0 13px 3px 7px;
+  margin: 0 -11px;
+  border-radius: 0.4rem;
+  border-top-right-radius: 1.2rem;
+  border-bottom-left-radius: 0.9rem;
+}
+
+/* layout */
+.content {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main.main {
+  flex: 1;
+}
+
+nav.header + main {
+  @apply mt-16;
+}
+
+/* util */
+.text-xxs {
+  font-size: 0.625rem;
+}
+
+.text-weak {
+  @apply opacity-70;
+}
+
+.bg-stripe {
+  background-image: linear-gradient(-45deg, transparent 25%, var(--c-ink) 25%, var(--c-ink) 50%, transparent 50%, transparent 75%, var(--c-ink) 75%, var(--c-ink));
+  background-size: 4px 4px;
+}
+
+.rounded-avator {
+  border-radius: 42% 45% 46% 38% / 49% 48% 39% 49%;
+}
+
+/* main */
+.btn {
+  @apply bg-ink text-paper;
+}
+
+.btn-outline {
+  @apply bg-transparent text-ink border-2 border-ink font-bold;
+}

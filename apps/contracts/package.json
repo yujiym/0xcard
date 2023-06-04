@@ -5,8 +5,8 @@
   "scripts": {},
   "dependencies": {},
   "devDependencies": {
-    "config": "workspace:*",
-    "tsconfig": "workspace:*",
+    "@0xcard/config": "workspace:*",
+    "@0xcard/tsconfig": "workspace:*",
     "typescript": "^4.5.3"
   }
 }
