@@ -4,8 +4,8 @@
 
 /* --- variables --- */
 :root {
-  --c-ink: #3F51B5; /*#003F8E; #002b59 #003F8E #3247BC; */
-  --c-paper: #FEFDF9;
+  --primary: #3F51B5; /*#003F8E; #002b59 #003F8E #3247BC; */
+  --background: #FEFDF9;
   --c-black: #280448;
   --c-neon-pink: #ffa2e6;
   --c-neon-orange: #ff6700;
@@ -14,13 +14,13 @@
 }
 
 html {
-  background: var(--c-paper);
-  color: var(--c-ink);
+  background: var(--background);
+  color: var(--primary);
 }
 
 [data-theme="dark"] {
-  background: var(--c-ink);
-  color: var(--c-paper);
+  background: var(--primary);
+  color: var(--c-background);
 }
 
 body {
@@ -80,7 +80,7 @@ nav.header + main {
 }
 
 .bg-stripe {
-  background-image: linear-gradient(-45deg, transparent 25%, var(--c-ink) 25%, var(--c-ink) 50%, transparent 50%, transparent 75%, var(--c-ink) 75%, var(--c-ink));
+  background-image: linear-gradient(-45deg, transparent 25%, var(--primary) 25%, var(--primary) 50%, transparent 50%, transparent 75%, var(--primary) 75%, var(--primary));
   background-size: 4px 4px;
 }
 
@@ -90,9 +90,9 @@ nav.header + main {
 
 /* main */
 .btn {
-  @apply bg-ink text-paper;
+  @apply bg-primary text-background;
 }
 
 .btn-outline {
-  @apply bg-transparent text-ink border-2 border-ink font-bold;
+  @apply bg-transparent text-primary border-2 border-primary font-bold;
 }

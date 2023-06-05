@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Globe, Unlock, FileQuestion } from 'lucide-react'
 import ImgBC from 'assets/img/bc.png'
-import { siteDescription } from '@0xcard/lib/const'
+import { siteTitle, siteDescription } from '@0xcard/lib/const'
 
 export const metadata = {
   title: siteDescription,
@@ -10,14 +10,14 @@ export const metadata = {
 
 export default function TopPage() {
   return (
-    <div className="min-h-screen flex flex-col md:flex-row flex-1 bg-rounghpaper">
+    <div className="min-h-screen flex flex-col md:flex-row flex-1">
       <div className="flex flex-1 items-center justify-center">
         <div className="py-12">
-          <h1 className="text-6xl mb-3 font-title">{siteDescription}</h1>
+          <h1 className="text-6xl mb-3 font-title">{siteTitle}</h1>
           <h2 className="text-2xl mb-12 mx-2">
             <span className="highlight">カード</span>プロトコル
           </h2>
-          <h2 className="text-xl font-mono italic">
+          <h2 className="text-xl font-sans italic">
             <p>Decentrilized</p>
             <p>business card protocol</p>
             <p>with privacy</p>
@@ -31,18 +31,18 @@ export default function TopPage() {
             </li>
           </ul>
           <Link
-            className="text-lg border-2 border-ink pr-5 pl-6 py-2 mt-10 inline-block font-mono"
-            href="/dashboard"
+            className="text-lg border-2 border-primary pr-5 pl-6 py-2 mt-10 inline-block font-mono"
+            href="/profile"
           >
             Start
           </Link>
         </div>
       </div>
-      <div className="flex md:flex-1 flex-auto items-center justify-center bg-ink text-paper p-8 overflow-hidden">
+      <div className="flex md:flex-1 flex-auto items-center justify-center bg-primary text-background p-8 overflow-hidden">
         <div>
           <ul className="flex justify-center items-center mb-6 rounded-full bg-gray-200/20 p-1 text-sm w-64">
             <li className="flex-1">
-              <button className="px-3 py-1 whitespace-nowrap flex flex-nowrap items-center justify-center bg-ink rounded-full">
+              <button className="px-3 py-1 whitespace-nowrap flex flex-nowrap items-center justify-center bg-primary rounded-full">
                 <Globe size={14} className="mr-1" />
                 Public
               </button>
