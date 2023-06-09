@@ -1,27 +1,46 @@
 .loader {
-   width: 89.6px;
-   height: 89.6px;
-   border: 11.2px solid #0000;
-   padding: 5.6px;
-   background: radial-gradient(farthest-side,rgba(63, 81, 181, 0.85) 98%,#0000 ) 0 0/22.4px 22.4px no-repeat, conic-gradient(from 90deg at 11.2px 11.2px,#0000 90deg,rgba(63, 81, 181, 0.85) 0) content-box, conic-gradient(from -90deg at 44.8px 44.8px,#0000 90deg,rgba(63, 81, 181, 0.85) 0) content-box,#FEFDF9;
-   filter: blur(3.4px) contrast(10);
-   animation: blob-a4ofes 1.6s infinite;
+	border-radius: 50%;
+	position: relative;
+	opacity: 1;
+	width: 3rem;
+	height: 3rem;
+	clear: both;
+	margin: 20px auto;
 }
-
-@keyframes blob-a4ofes {
-  0% {
-    background-position: 0 0;
-  }
-  25% {
-    background-position: 100% 0;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  75% {
-    background-position: 0 100%;
-  }
-  100% {
-    background-position: 0 0;
-  }
+.loader:before, .loader:after  {
+	content:'';
+	border: 1px #3F51B5 solid;
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left:0px;
+}
+.loader:before {
+	transform: scale(1,1);
+	opacity: 1;
+	-webkit-animation: spWaveBe 0.6s infinite linear;
+	animation: spWaveBe 0.6s infinite linear;
+}
+.loader:after {
+	transform: scale(0,0);
+	opacity: 0;
+	-webkit-animation: spWaveAf 0.6s infinite linear;
+	animation: spWaveAf 0.6s infinite linear;
+}
+@-webkit-keyframes spWaveAf {
+	from { -webkit-transform: scale(0.5,0.5); opacity: 0; }
+	to { -webkit-transform: scale(1,1); opacity: 1; }
+}
+@keyframes spWaveAf {
+	from { transform: scale(0.5,0.5); opacity: 0; }
+	to { transform: scale(1,1); opacity: 1; }
+}
+@-webkit-keyframes spWaveBe {
+	from { -webkit-transform: scale(1,1); opacity: 1; }
+	to { -webkit-transform: scale(1.5,1.5); opacity: 0; }
+}
+@keyframes spWaveBe {
+	from { -webkit-transform: scale(1,1); opacity: 1; }
+	to { -webkit-transform: scale(1.5,1.5); opacity: 0; }
 }

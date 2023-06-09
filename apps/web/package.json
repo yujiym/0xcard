@@ -10,19 +10,21 @@
   },
   "dependencies": {
     "@0xcard/lib": "workspace:*",
+    "@hookform/resolvers": "^3.1.0",
     "@polybase/auth": "^0.6.1",
     "@polybase/client": "^0.6.1",
     "@polybase/react": "^0.6.1",
-    "class-variance-authority": "^0.6.0",
-    "clsx": "^1.2.1",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tabs": "^1.0.4",
     "jotai": "^2.1.1",
     "lucide-react": "^0.233.0",
     "next": "^13.4.1",
     "next-pwa": "^5.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwind-merge": "^1.13.0",
-    "tailwindcss-animate": "^1.0.5"
+    "react-hook-form": "^7.44.3",
+    "vcard4": "3.1.5",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@0xcard/config": "workspace:*",
@@ -31,8 +33,12 @@
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "autoprefixer": "^10.4.14",
+    "class-variance-authority": "^0.6.0",
+    "clsx": "^1.2.1",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
+    "tailwind-merge": "^1.13.0",
+    "tailwindcss-animate": "^1.0.5",
     "typescript": "^4.5.3"
   }
 }

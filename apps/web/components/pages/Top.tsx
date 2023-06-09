@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Globe, Unlock, FileQuestion } from 'lucide-react'
 import ImgBC from 'assets/img/bc.png'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { siteTitle, siteDescription } from '@0xcard/lib/const'
 
 export const metadata = {
@@ -17,7 +18,7 @@ export default function TopPage() {
           <h2 className="text-2xl mb-12 mx-2">
             <span className="highlight">カード</span>プロトコル
           </h2>
-          <h2 className="text-xl font-sans italic">
+          <h2 className="text-xl font-mono italic">
             <p>Decentrilized</p>
             <p>business card protocol</p>
             <p>with privacy</p>
@@ -40,26 +41,40 @@ export default function TopPage() {
       </div>
       <div className="flex md:flex-1 flex-auto items-center justify-center bg-primary text-background p-8 overflow-hidden">
         <div>
-          <ul className="flex justify-center items-center mb-6 rounded-full bg-gray-200/20 p-1 text-sm w-64">
-            <li className="flex-1">
-              <button className="px-3 py-1 whitespace-nowrap flex flex-nowrap items-center justify-center bg-primary rounded-full">
+          <Tabs defaultValue="public" className="w-[240]">
+            <TabsList className="mb-2 w-full bg-gray-200/50 text-primary rounded-sm px-1 py-0.5 h-9">
+              <TabsTrigger
+                value="public"
+                className="flex-1 data-[state=active]:bg-gray-200/90 data-[state=active]:text-primary rounded-sm text-xs"
+              >
                 <Globe size={14} className="mr-1" />
                 Public
-              </button>
-            </li>
-            <li className="flex-1">
-              <button className="px-3 py-1 opacity-50 whitespace-nowrap flex flex-nowrap items-center justify-center">
+              </TabsTrigger>
+              <TabsTrigger
+                value="private"
+                className="flex-1 data-[state=active]:bg-gray-200/90 data-[state=active]:text-primary rounded-sm text-xs"
+              >
                 <Unlock size={14} className="mr-1" />
                 In contact list
-              </button>
-            </li>
-          </ul>
-          <Image
-            alt="businesscard"
-            src={ImgBC}
-            height={480}
-            className="-mb-80 md:mb-0 opacity-90 mx-auto"
-          />
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="public">
+              <Image
+                alt="businesscard"
+                src={ImgBC}
+                width={240}
+                className="-mb-80 md:mb-0 opacity-90 mx-auto"
+              />
+            </TabsContent>
+            <TabsContent value="private">
+              <Image
+                alt="businesscard"
+                src={ImgBC}
+                width={240}
+                className="-mb-80 md:mb-0 opacity-90 mx-auto"
+              />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>
