@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import { Inter, Major_Mono_Display, Space_Mono } from 'next/font/google'
 import '@/assets/css/main.css'
 // import { Toaster } from 'ui/components/Toaster'
@@ -44,6 +45,7 @@ export default function RootLayout({
         {children}
         {/* <Toaster position="top-center" toastOptions={toastOptions} /> */}
       </body>
+      <Analytics />
     </html>
   )
 }
