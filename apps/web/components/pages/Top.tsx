@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Globe, Unlock, FileQuestion } from 'lucide-react'
 import ImgBC from 'assets/img/bc.png'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
 import { siteTitle, siteDescription } from '@0xcard/lib/const'
 
 export const metadata = {
