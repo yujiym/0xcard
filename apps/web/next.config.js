@@ -1,4 +1,8 @@
-module.exports = {
+const withPWA = require('next-pwa')({
+  dest: 'public',
+})
+
+module.exports = withPWA({
   reactStrictMode: true,
-  transpilePackages: ["ui"],
-};
+  transpilePackages: ['@0xcard/lib'],
+})

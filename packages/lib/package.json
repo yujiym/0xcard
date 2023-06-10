@@ -1,5 +1,5 @@
 {
-  "name": "ui",
+  "name": "@0xcard/lib",
   "version": "0.0.0",
   "main": "./index.tsx",
   "types": "./index.tsx",
@@ -9,12 +9,12 @@
     "generate:component": "turbo gen react-component"
   },
   "devDependencies": {
+    "@0xcard/config": "workspace:*",
+    "@0xcard/tsconfig": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "eslint": "^7.32.0",
-    "eslint-config-custom": "workspace:*",
     "react": "^17.0.2",
-    "tsconfig": "workspace:*",
     "typescript": "^4.5.2"
   }
 }
