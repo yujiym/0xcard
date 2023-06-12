@@ -19,7 +19,7 @@ export function Toaster() {
           <Toast
             key={id}
             {...props}
-            className="p-4 shadow-sm border-primary/40 flex items-center"
+            className="p-4 shadow-sm bg-primary text-background border-none flex items-center"
           >
             <div className="grid gap-1">
               {title && <ToastTitle>{title}</ToastTitle>}
@@ -28,11 +28,11 @@ export function Toaster() {
               )}
             </div>
             {action}
-            <ToastClose />
+            <ToastClose className="text-gray-200 hover:text-background" />
           </Toast>
         )
       })}
-      <ToastViewport />
+      <ToastViewport className="top-12 sm:top-12 sm:bottom-auto sm:left-auto sm:right-0" />
     </ToastProvider>
   )
 }

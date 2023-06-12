@@ -1,10 +1,12 @@
 'use client'
+import Link from 'next/link'
 import { useIsAuthenticated } from '@polybase/react'
-import { Save } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Loader from '@/components/Loader'
 import SigninScreen from '@/components/SigninScreen'
+import ProfileForm from '@/components/form/ProfileForm'
 
 export default function Page() {
   const [isLoggedIn, loading] = useIsAuthenticated()
@@ -14,14 +16,17 @@ export default function Page() {
       {loading && <Loader />}
       {isLoggedIn ? (
         <>
-          <Header>Edit profile</Header>
-          <main className="container-sm"></main>
-          <button
-            type="submit"
-            className="fixed right-4 md:bottom-3 bottom-16 z-50 rounded-full h-16 w-16 flex justify-center items-center text-background bg-primary border-4 border-background"
-          >
-            <Save />
-          </button>
+          <Header>
+            <>
+              <Link href="/profile">
+                <ArrowLeft className="mr-2" />
+              </Link>
+              Edit profile
+            </>
+          </Header>
+          <main className="container-sm pb-32 md:pb-24">
+            <ProfileForm />
+          </main>
           <Nav />
         </>
       ) : (

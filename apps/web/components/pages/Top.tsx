@@ -16,7 +16,7 @@ export default function TopPage() {
         <div className="py-12">
           <h1 className="text-6xl mb-3 font-title">{siteTitle}</h1>
           <h2 className="text-2xl mb-12 mx-2">
-            <span className="highlight">カード</span>プロトコル
+            <span className="highlight-top">カード</span>プロトコル
           </h2>
           <h2 className="text-xl font-mono italic">
             <p>Decentrilized</p>

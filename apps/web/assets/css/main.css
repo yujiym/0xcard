@@ -12,12 +12,12 @@
     --background: 48 71.4% 98.6%; /* #FEFDF9 */
     --foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground: 231 48% 82%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
     --card: 0 0% 100%;
     --card-foreground: 222.2 47.4% 11.2%;
-    --border: 231 48% 90%;
+    --border: 231 48% 82%;
     --input: 214.3 31.8% 91.4%;
     --primary: 231 48% 48%; /* #3F51B5 */
     --primary-foreground: 210 40% 98%;
@@ -71,7 +71,30 @@
     background: hsl(var(--neon-yellow));
   }
 
-  .highlight {
+  .highlight-error {
+    background: linear-gradient(
+      104deg,
+      rgba(255, 110, 199,0) 0.9%,
+      rgba(255, 110, 199,0.6) 2.4%,
+      rgba(255, 110, 199,0.3) 5.8%,
+      rgba(255, 110, 199,0.05) 93%,
+      rgba(255, 110, 199,0.4) 96%,
+      rgba(255, 110, 199,0) 98%
+      ),
+    linear-gradient(
+      183deg,
+      rgba(255, 110, 199,0) 0%,
+      rgba(255, 110, 199,0.2) 7.9%,
+      rgba(255, 110, 199,0)
+      15%);
+    padding: 0 13px 2px 11px;
+    margin: 0 -11px;
+    border-radius: 0.4rem;
+    border-top-right-radius: 1.2rem;
+    border-bottom-left-radius: 0.9rem;
+  }
+
+  .highlight-top {
     display: inline-flex;
     background: linear-gradient(
       104deg,
@@ -84,9 +107,9 @@
       ),
     linear-gradient(
       183deg,
-      rgba(255,248,143,0) 0%,
-      rgba(255,248,143,0.3) 7.9%,
-      rgba(255,248,143,0)
+      rgba(255,103,0,0) 0%,
+      rgba(255,103,0,0.3) 7.9%,
+      rgba(255,103,0,0)
       15%);
     padding: 0 13px 3px 7px;
     margin: 0 -11px;
