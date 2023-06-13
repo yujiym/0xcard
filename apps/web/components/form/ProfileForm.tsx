@@ -7,11 +7,10 @@ import Textarea from '@/components/form/Textarea'
 import Input from '@/components/form/Input'
 import InputField from '@/components/form/InputField'
 import CustomInputField from '@/components/form/CustomInputField'
-import { Save, User2 } from 'lucide-react'
+import { Save } from 'lucide-react'
 import { formatVcard } from '@/lib/vcard'
-import { upload } from '@/lib/web3Storage'
-// import { useStorage } from '@common/react-lib/hooks/useStorage'
-// import useSetIPFSHash from '@common/react-lib/hooks/useSetIPFSHash'
+import useWeb3Storage from '@/hooks/useWeb3Storage'
+import { socialLists } from '@/../../packages/lib/const'
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
@@ -20,8 +19,7 @@ const phoneRegex = new RegExp(
 const schema = z.object({
   name: z.string().max(120).nonempty(),
   about: z.string().max(1000).optional(),
-  email: z.string().email().min(5).optional().or(z.literal('')),
-  icon: z.string().url().optional().or(z.literal('')),
+  photo1: z.string().url().optional().or(z.literal('')),
   fields: z.array(
     z.object({
       name: z.string().max(120).nonempty(),
@@ -45,10 +43,7 @@ const schema = z.object({
 type SchemaType = z.infer<typeof schema>
 
 export default function ProfileForm() {
-  // const { getFn, putFn } = useStorage()
-  // const { address } = useAccount()
-  // const [hash, setHash] = useState<string>('')
-  // const { prepareFn, writeFn, waitFn } = useSetIPFSHash(hash)
+  const { upload, read } = useWeb3Storage()
 
   const methods = useForm<SchemaType>({
     resolver: zodResolver(schema),
@@ -67,9 +62,7 @@ export default function ProfileForm() {
 
   const onSubmit = async (data: any) => {
     const vcf = formatVcard(data)
-    console.log('vcf: ', vcf)
     const cid = await upload(vcf)
-    console.log('upload complete - cid: ', cid)
 
     // if (!!address) {
     //   const publicFields = data.fields
@@ -104,22 +97,25 @@ export default function ProfileForm() {
   return (
     <FormProvider {...methods}>
       <form className="p-6" onSubmit={methods.handleSubmit(onSubmit)}>
-        {/* <h3 className="mb-6 font-mono text-xl border-l-8 px-3">Profile</h3> */}
         <div className="pb-4">
           <Input name="name" label="Name" />
         </div>
         <div className="pb-4">
-          <Textarea name="about" label="About me" placeholder="I am hacker." />
+          <Textarea
+            name="about"
+            label="About me"
+            placeholder="I am a hacker."
+          />
         </div>
         <div className="pb-4">
           <Input
-            name="icon"
+            name="photo1"
             label="Profile icon URL"
             description="Your public profile icon. NFT etc."
           />
         </div>
         <InputField
-          name="photo"
+          name="photo2"
           label="Profile photo URL"
           index={0}
           description="Your live-action photo. Can be set to private."
@@ -127,48 +123,15 @@ export default function ProfileForm() {
         <h3 className="mt-8 mb-6 font-mono text-xl border-l-8 px-3">
           Social Links
         </h3>
-        <InputField
-          name="facebook"
-          label="Facebook"
-          placeholder="https://fb.com/who-am-i"
-          index={2}
-        />
-        <InputField
-          name="twitter"
-          label="Twitter"
-          placeholder="https://twitter.com/who-am-i"
-          index={3}
-        />
-        <InputField
-          name="instagram"
-          label="Instagram"
-          placeholder="https://instagram.com/who-am-i"
-          index={4}
-        />
-        <InputField
-          name="github"
-          label="Github"
-          placeholder="https://github.com/who-am-i"
-          index={5}
-        />
-        <InputField
-          name="telegram"
-          label="Telegram"
-          placeholder="https://t.me/who-am-i"
-          index={6}
-        />
-        <InputField
-          name="linkedin"
-          label="Linkedin"
-          placeholder="https://linkedin.com/who-am-i"
-          index={7}
-        />
-        <InputField
-          name="whatsapp"
-          label="Whatsapp"
-          placeholder="+9190000000000"
-          index={8}
-        />
+        {socialLists.map((item: any) => (
+          <InputField
+            key={`${item.name}-${item.index}`}
+            name={item.name}
+            label={item.label}
+            placeholder={item.placeholder}
+            index={item.index}
+          />
+        ))}
         <InputField
           name="email"
           label="Email"

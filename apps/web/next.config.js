@@ -4,5 +4,5 @@ const withPWA = require('next-pwa')({
 
 module.exports = withPWA({
   reactStrictMode: true,
-  transpilePackages: ['@0xcard/lib'],
+  transpilePackages: ['@0xcard/lib', 'jotai-devtools'],
 })

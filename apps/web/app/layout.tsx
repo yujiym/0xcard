@@ -5,7 +5,7 @@ import MetaTags from '@/components/MetaTags'
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: ['400', '700'],
   variable: '--font-inter',
 })
 

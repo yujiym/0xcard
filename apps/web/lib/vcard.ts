@@ -17,7 +17,9 @@ import {
   SpecialValueType,
   NProperty,
   VCARD,
+  parse,
 } from 'vcard4'
+import { socialLists } from '@0xcard/lib/const'
 
 export const formatVcard = (data: any) => {
   const publicFields = data.fields
@@ -42,7 +44,7 @@ export const formatVcard = (data: any) => {
 
   if (data.about) {
     const about = new NoteProperty(
-      [new AltidParameter(new TextType('ABOUT'))],
+      [new AltidParameter(new TextType('About'))],
       new TextType(data.about)
     )
     arr.push(about)
@@ -68,20 +70,12 @@ export const formatVcard = (data: any) => {
   if (email) {
     arr.push(new EmailProperty([], new TextType(email)))
   }
-  ;[
-    'facebook',
-    'twitter',
-    'instagram',
-    'github',
-    'telegram',
-    'linkedin',
-    'whatsapp',
-  ].map((name: string) => {
-    const content = publicFields.find(f => f.name === name)?.content
+  socialLists.map((item: any) => {
+    const content = publicFields.find(f => f.name === item.name)?.content
     if (content) {
       arr.push(
         new URLProperty(
-          [new AltidParameter(new TextType(name.toUpperCase()))],
+          [new AltidParameter(new TextType(item.label.toUpperCase()))],
           new URIType(content)
         )
       )
@@ -91,3 +85,5 @@ export const formatVcard = (data: any) => {
   const card = new VCARD(arr)
   return card.repr()
 }
+
+export const parseVcard = (vcf: any) => parse(vcf)
