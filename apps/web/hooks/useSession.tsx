@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { useAtom } from 'jotai'
 import { useAuth } from '@polybase/react'
 import { db } from '@/components/PolybaseWrapper'
-import { Toaster } from '@/components/ui/Toaster'
 import { sessionAtom } from '@/lib/atoms'
 
 export default function useSession() {

@@ -3,7 +3,7 @@ import { useAtom } from 'jotai'
 import { sessionAtom } from '@/lib/atoms'
 import { uploadData, readData } from '@/lib/web3Storage'
 import { parseVcard } from '@/lib/vcard'
-import { socialLists } from '@/../../packages/lib/const'
+import { socialLists } from '@0xcard/lib/const'
 
 export default function useWeb3Storage() {
   const [session, setSession] = useAtom(sessionAtom)

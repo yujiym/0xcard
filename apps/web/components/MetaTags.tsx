@@ -3,7 +3,6 @@ import { siteTitle, siteDescription } from '@0xcard/lib/const'
 export default function MetaTags(): JSX.Element {
   return (
     <>
-      <title>{siteTitle}</title>
       <meta name="description" content={siteDescription} />
       <meta
         name="viewport"

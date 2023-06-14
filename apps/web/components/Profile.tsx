@@ -4,14 +4,19 @@ import { socialLists } from '@0xcard/lib/const'
 type Props = {
   userData: any[]
   mode?: 'edit' | 'view'
+  klass?: string
 }
 
-export default function Profile({ userData, mode = 'view' }: Props) {
+export default function Profile({
+  userData,
+  mode = 'view',
+  klass = '',
+}: Props) {
   const user = (name: string) =>
     userData.find(el => el.name === name)?.content ?? ''
 
   return (
-    <div className="">
+    <div className={klass}>
       <div className="pt-8 flex justify-center">
         {user('photo1') ? (
           <img
