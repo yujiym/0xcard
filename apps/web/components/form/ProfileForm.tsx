@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -10,7 +10,10 @@ import CustomInputField from '@/components/form/CustomInputField'
 import { Save } from 'lucide-react'
 import { formatVcard } from '@/lib/vcard'
 import useWeb3Storage from '@/hooks/useWeb3Storage'
-import { socialLists } from '@/../../packages/lib/const'
+import { useAtomValue } from 'jotai'
+import { sessionAtom } from '@/lib/atoms'
+import { socialLists, formFieldLists, formLists } from '@0xcard/lib/const'
+import { db } from '@/components/PolybaseWrapper'
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
@@ -43,55 +46,54 @@ const schema = z.object({
 type SchemaType = z.infer<typeof schema>
 
 export default function ProfileForm() {
-  const { upload, read } = useWeb3Storage()
+  const { upload, read, reading } = useWeb3Storage()
+  const { data: sessionData } = useAtomValue(sessionAtom)
+  const cid = 'bafybeighuv7gi76m4veniiaa7qdtnspuuyhp243veoi4pc2wg7lrqgth4y' // TODO: set from db
+
+  const getUserData = async () => {
+    console.log('aaaaa1')
+    const userCollection = db.collection('users')
+    console.log('aaaaa2', userCollection)
+    const res = await userCollection.get()
+    console.log('res2*****', res)
+    return res
+  }
 
   const methods = useForm<SchemaType>({
     resolver: zodResolver(schema),
   })
 
-  // useEffect(() => {
-  //   console.log('hash', hash, prepareFn.isSuccess, prepareFn.error, prepareFn)
-  //   if (prepareFn.isSuccess) {
-  //     console.log('write')
-  //     writeFn?.write()
-  //     if (writeFn.isSuccess && waitFn.isSuccess) {
-  //       toast('Profile updated', { icon: '👌' })
-  //     }
-  //   }
-  // }, [hash, prepareFn.isSuccess])
+  useEffect(() => {
+    ;(async () => {
+      if (cid) {
+        await read(cid)
+        await getUserData()
+      }
+    })()
+  }, [cid])
+
+  useEffect(() => {
+    if (!reading && sessionData) {
+      // Set form value
+      const user = (name: string) =>
+        sessionData.find(el => el.name === name)?.content ?? ''
+      formLists.map((item: any) => {
+        user(item.name) && methods.setValue(item.name, user(item.name))
+      })
+      formFieldLists.map((item: any) => {
+        user(item.name) &&
+          // @ts-ignore
+          methods.setValue(`fields[${item.index}].content`, user(item.name))
+      })
+    }
+  }, [reading, sessionData])
 
   const onSubmit = async (data: any) => {
     const vcf = formatVcard(data)
     const cid = await upload(vcf)
-
-    // if (!!address) {
-    //   const publicFields = data.fields
-    //     .filter((f: any) => f.visibility === 'public')
-    //     .map((f: any) => {
-    //       return {
-    //         key: f.key,
-    //         content: f.content,
-    //       }
-    //     })
-    //   const privateFields = data.fields
-    //     .filter((f: any) => f.visibility === 'friends')
-    //     .map((f: any) => {
-    //       return {
-    //         key: f.key,
-    //         content: f.content,
-    //       }
-    //     })
-    //   let postData = {
-    //     ownerAddress: address,
-    //     name: data.name,
-    //     about: data.about,
-    //     photoURL: data.photoURL,
-    //     publicFields,
-    //     privateFields,
-    //   }
-    //   const res = await putFn(postData)
-    //   setHash(res)
-    // }
+    const userCollection = db.collection('users')
+    const res = userCollection.get()
+    console.log('res', res)
   }
 
   return (
@@ -110,13 +112,15 @@ export default function ProfileForm() {
         <div className="pb-4">
           <Input
             name="photo1"
-            label="Profile icon URL"
-            description="Your public profile icon. NFT etc."
+            label="Profile Icon"
+            placeholder="https://example.com/my-public-photo.jpg"
+            description="Your public photo."
           />
         </div>
         <InputField
           name="photo2"
-          label="Profile photo URL"
+          label="Profile Photo"
+          placeholder="https://example.com/my-photo.jpg"
           index={0}
           description="Your live-action photo. Can be set to private."
         />
@@ -136,7 +140,7 @@ export default function ProfileForm() {
           name="email"
           label="Email"
           placeholder="me@who-am-i.com"
-          index={1}
+          index={8}
         />
         <h3 className="mt-8 mb-6 font-mono text-xl border-l-8 px-3">
           Other Links

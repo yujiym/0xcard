@@ -5,7 +5,7 @@ import { Auth } from '@polybase/auth'
 
 export const db = new Polybase({
   defaultNamespace:
-    'pk/0xa773c37764b8b947880f0406cebefb69443d53f513f4f3b6a1dbad5cbecde9196ac8db42bd97610e0e157f6af069fadc6f4cd48ee21fd2a5959b352ae6afbb60/0xCARD',
+    'pk/0x78270b82619ae45a456613d40b07d297bb50b15fa7bad88a2eab0335fa98a82fa7f206c3c6f0ebfc5a250b2d9803935dec4eebf69eedfb1cbd28bfe7bd006711/0xCARD',
 })
 
 export const auth = typeof window !== 'undefined' ? new Auth() : null

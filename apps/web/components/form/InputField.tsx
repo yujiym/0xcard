@@ -21,7 +21,7 @@ export default function InputField({
 
   return (
     <>
-      <label htmlFor={name} className="flex items-center">
+      <label htmlFor={name} className="flex items-center whitespace-nowrap">
         <LabelIcon name={name} className="mr-1" />
         <span className="text-lg">{label}</span>
         {description && <span className="text-xs ml-3">({description})</span>}

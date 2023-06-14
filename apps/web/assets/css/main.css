@@ -148,11 +148,7 @@
 
   .bg-stripe {
     background-image: linear-gradient(-45deg, transparent 25%, hsl(var(--primary)) 25%, hsl(var(--primary)) 50%, transparent 50%, transparent 75%, hsl(var(--primary)) 75%, hsl(var(--primary)));
-    background-size: 4px 4px;
-  }
-
-  .rounded-avator {
-    border-radius: 42% 45% 46% 38% / 49% 48% 39% 49%;
+    background-size: 5px 5px;
   }
 
   /* main */

@@ -6,10 +6,12 @@ export default function InputSet({
   name,
   label,
   description,
+  placeholder,
   ...props
 }: {
   name: string
   label: string
+  placeholder?: string
   description?: string
 }) {
   const methods = useFormContext()
@@ -20,7 +22,12 @@ export default function InputSet({
         <span className="text-lg">{label}</span>
         {description && <span className="text-xs ml-3">({description})</span>}
       </label>
-      <Input {...methods.register(name)} id={name} {...props} />
+      <Input
+        {...methods.register(name)}
+        id={name}
+        placeholder={placeholder}
+        {...props}
+      />
       <InputError error={methods.formState.errors[name]?.message} />
     </>
   )

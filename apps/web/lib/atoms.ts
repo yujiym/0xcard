@@ -2,8 +2,9 @@ import { atom } from 'jotai'
 import { atomWithReset } from 'jotai/utils'
 
 // user
-export const userAtom = atom<any>({
+export const sessionAtom = atomWithReset<any>({
+  loading: false,
+  userId: undefined,
   cid: undefined,
-  cid2: undefined,
   data: [],
 })
