@@ -12,18 +12,22 @@ import SigninScreen from '@/components/SigninScreen'
 import { useAtomValue } from 'jotai'
 import { sessionAtom } from '@/lib/atoms'
 import useWeb3Storage from '@/hooks/useWeb3Storage'
+import useSession from '@/hooks/useSession'
 
 export default function Page() {
+  useSession()
   const [isLoggedIn, loading] = useIsAuthenticated()
   const { read, reading } = useWeb3Storage()
   const session = useAtomValue(sessionAtom)
 
   useEffect(() => {
     ;(async () => {
-      const cid = 'bafybeighuv7gi76m4veniiaa7qdtnspuuyhp243veoi4pc2wg7lrqgth4y' // TODO: set from db
-      await read(cid)
+      if (session?.cid) {
+        console.log(session?.cid)
+        await read(session.cid)
+      }
     })()
-  }, [])
+  }, [session?.cid])
 
   return (
     <>
