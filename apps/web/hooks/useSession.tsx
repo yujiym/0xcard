@@ -2,6 +2,7 @@
 import { useEffect } from 'react'
 import { useAtom } from 'jotai'
 import { useAuth } from '@polybase/react'
+import { useToast } from '@/hooks/useToast'
 import { db } from '@/components/PolybaseWrapper'
 import { sessionAtom } from '@/lib/atoms'
 
@@ -9,6 +10,7 @@ export default function useSession() {
   const { state, loading } = useAuth()
   const [session, setSession] = useAtom(sessionAtom)
   const userRef = db.collection('User')
+  const { toast } = useToast()
 
   useEffect(() => {
     if (loading) {
@@ -38,4 +40,37 @@ export default function useSession() {
       }
     })()
   }, [session.userId])
+
+  const addContacts = async (cid: string) => {
+    try {
+      setSession({
+        ...session,
+        contacts: [...session.contacts, cid],
+      })
+      await userRef.record(session.userId).call('addCoontacts', [cid])
+      toast({ description: 'Added to contacts.' })
+    } catch (e) {
+      console.log('error - addContacts: ', e)
+      throw e
+    }
+  }
+
+  const removeContacts = async (cid: string) => {
+    try {
+      setSession({
+        ...session,
+        contacts: session.contacts.filter((c: string) => c !== cid),
+      })
+      await userRef.record(session.userId).call('removeCoontacts', [cid])
+      toast({ description: 'Remove from contacts.' })
+    } catch (e) {
+      console.log('error - removeContacts: ', e)
+      throw e
+    }
+  }
+
+  return {
+    addContacts,
+    removeContacts,
+  }
 }

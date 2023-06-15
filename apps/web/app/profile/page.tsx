@@ -3,7 +3,7 @@ import MyProfilePage from '@/components/pages/MyProfile'
 import { siteTitle } from '@0xcard/lib/const'
 
 export const metadata: Metadata = {
-  title: `My profile | ${siteTitle}`,
+  title: `My Profile | ${siteTitle}`,
 }
 
 export default async function Page() {

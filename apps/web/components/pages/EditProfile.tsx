@@ -21,7 +21,7 @@ export default function EditProfilePage() {
               <Link href="/profile">
                 <ArrowLeft className="mr-2" />
               </Link>
-              Edit profile
+              Edit Profile
             </>
           </Header>
           <main className="container-sm pb-32 md:pb-24">

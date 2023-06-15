@@ -1,10 +1,14 @@
 import { atom } from 'jotai'
 import { atomWithReset } from 'jotai/utils'
 
-// user
+// session
 export const sessionAtom = atomWithReset<any>({
   loading: false,
   userId: undefined,
   cid: undefined,
   data: [],
+  contacts: [],
 })
+
+// user
+export const usersAtom = atom<any[]>([])

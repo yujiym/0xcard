@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { useAtom } from 'jotai'
-import { sessionAtom } from '@/lib/atoms'
+import { sessionAtom, usersAtom } from '@/lib/atoms'
 import { uploadData, readData } from '@/lib/web3Storage'
 import { parseVcard } from '@/lib/vcard'
 import { socialLists } from '@0xcard/lib/const'
 
 export default function useWeb3Storage() {
   const [session, setSession] = useAtom(sessionAtom)
+  const [users, setUsers] = useAtom(usersAtom)
   const [reading, setReading] = useState<boolean>(false)
 
   const upload = async (data: string) => {
@@ -15,7 +16,7 @@ export default function useWeb3Storage() {
     console.log('upload complete - cid: ', cid)
   }
 
-  const read = async (cid: string) => {
+  const read = async (cid: string, me: boolean = true) => {
     setReading(true)
     const res = await readData(cid)
     // @ts-ignore
@@ -32,8 +33,7 @@ export default function useWeb3Storage() {
         visibility: 'public',
       }
     })
-
-    setSession({
+    const userData = {
       ...session,
       cid,
       data: [
@@ -77,7 +77,13 @@ export default function useWeb3Storage() {
           visibility: 'public',
         },
       ].flat(),
-    })
+    }
+
+    if (me) {
+      setSession(userData)
+    } else {
+      setUsers([...users, userData])
+    }
     setReading(false)
   }
 

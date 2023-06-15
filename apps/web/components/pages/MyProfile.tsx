@@ -35,7 +35,7 @@ export default function MyProfiePage() {
         <>
           <Header>
             <div className="flex justify-between w-full items-center">
-              <span>My profile</span>
+              <span>My Profile</span>
               <div className="w-12 h-12">
                 <ShareButton cid={session.cid ?? ''} />
               </div>
