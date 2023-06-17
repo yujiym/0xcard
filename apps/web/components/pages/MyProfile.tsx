@@ -30,14 +30,14 @@ export default function MyProfiePage() {
 
   return (
     <>
-      {(loading || reading) && <Loader />}
+      {(loading || reading || !session.loaded) && <Loader />}
       {isLoggedIn ? (
         <>
           <Header>
             <div className="flex justify-between w-full items-center">
               <span>My Profile</span>
               <div className="w-12 h-12">
-                <ShareButton cid={session.cid ?? ''} />
+                <ShareButton cid={session.cid ?? ''} name="My" />
               </div>
             </div>
           </Header>

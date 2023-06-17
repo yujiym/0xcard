@@ -1,5 +1,6 @@
 import LabelIcon from '@/components/LabelIcon'
 import { socialLists } from '@0xcard/lib/const'
+import { Edit3 } from 'lucide-react'
 
 type Props = {
   userData: any[]
@@ -12,6 +13,7 @@ export default function Profile({
   mode = 'view',
   klass = '',
 }: Props) {
+  const noData = userData.length < 1
   const user = (name: string) =>
     userData.find(el => el.name === name)?.content ?? ''
 
@@ -47,8 +49,20 @@ export default function Profile({
       </div>
       <div className="px-6">
         <div className="text-center mt-6 mb-10 ">
-          <p className="text-xl font-bold">{user('name')}</p>
-          <p className="mt-4 text-sm">{user('about')}</p>
+          <p className="text-xl font-bold">
+            {noData ? <span>Your Name</span> : user('name')}
+          </p>
+          <p className="mt-4 text-sm">
+            {noData ? (
+              <p className="inline whitespace-normal">
+                Not registered yet. Press
+                <Edit3 size={18} className="mx-1 inline-block" />
+                at the bottom to register.
+              </p>
+            ) : (
+              user('about')
+            )}
+          </p>
         </div>
         <ul className="sm:mx-12">
           {socialLists.map(

@@ -54,7 +54,7 @@ export default function MetaTags(): JSX.Element {
         sizes="16x16"
       />
       <link rel="icon" href="/icons/favicon.ico" />
-      <link rel="manifest" href="/manifest.json" />
+      {/* <link rel="manifest" href="/manifest.json" /> */}
     </>
   )
 }

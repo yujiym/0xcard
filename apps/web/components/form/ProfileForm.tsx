@@ -13,7 +13,8 @@ import useWeb3Storage from '@/hooks/useWeb3Storage'
 import { useAtomValue } from 'jotai'
 import { sessionAtom } from '@/lib/atoms'
 import { socialLists, formFieldLists, formLists } from '@0xcard/lib/const'
-import { db } from '@/components/PolybaseWrapper'
+import useSession from '@/hooks/useSession'
+import { useToast } from '@/hooks/useToast'
 
 const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
@@ -46,31 +47,14 @@ const schema = z.object({
 type SchemaType = z.infer<typeof schema>
 
 export default function ProfileForm() {
+  const { setUser } = useSession()
   const { upload, read, reading } = useWeb3Storage()
-  const { data: sessionData } = useAtomValue(sessionAtom)
-  const cid = 'bafybeighuv7gi76m4veniiaa7qdtnspuuyhp243veoi4pc2wg7lrqgth4y' // TODO: set from db
-
-  const getUserData = async () => {
-    console.log('aaaaa1')
-    const userCollection = db.collection('users')
-    console.log('aaaaa2', userCollection)
-    const res = await userCollection.get()
-    console.log('res2*****', res)
-    return res
-  }
+  const { cid, data: sessionData } = useAtomValue(sessionAtom)
+  const { toast } = useToast()
 
   const methods = useForm<SchemaType>({
     resolver: zodResolver(schema),
   })
-
-  useEffect(() => {
-    ;(async () => {
-      if (cid) {
-        await read(cid)
-        await getUserData()
-      }
-    })()
-  }, [cid])
 
   useEffect(() => {
     if (!reading && sessionData) {
@@ -89,11 +73,26 @@ export default function ProfileForm() {
   }, [reading, sessionData])
 
   const onSubmit = async (data: any) => {
-    const vcf = formatVcard(data)
-    const cid = await upload(vcf)
-    const userCollection = db.collection('users')
-    const res = userCollection.get()
-    console.log('res', res)
+    try {
+      const vcf = formatVcard(data)
+      const res = await upload(vcf, cid)
+      const record = await setUser(
+        cid ? 'update' : 'new',
+        res,
+        data.name,
+        data.photo1 ?? ''
+      )
+      toast({
+        description: `${res === cid ? 'Update' : 'Registration'} Succucess.`,
+      })
+      console.log(
+        `${res === cid ? 'Update' : 'Registration'} Succucess : `,
+        record
+      )
+    } catch (e) {
+      console.log('error - submit: ', e)
+      throw e
+    }
   }
 
   return (

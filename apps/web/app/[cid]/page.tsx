@@ -10,14 +10,14 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cid = params.cid
-  const res = await readData(cid)
+  // const res = await readData(cid)
   // @ts-ignore
-  const data: any[] = parseVcard(res)?.parsedVcard
-  const name = data.find(el => el.property === 'FN')?.value ?? ''
+  // const data: any[] = parseVcard(res)?.parsedVcard
+  // const name = data.find(el => el.property === 'FN')?.value ?? ''
 
-  return {
-    title: name ? `${name} | ${siteTitle}` : siteTitle,
-  }
+  // return {
+  //   title: name ? `${name} | ${siteTitle}` : siteTitle,
+  // }
 }
 
 export default async function Page() {

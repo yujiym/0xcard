@@ -3,7 +3,7 @@ import { atomWithReset } from 'jotai/utils'
 
 // session
 export const sessionAtom = atomWithReset<any>({
-  loading: false,
+  loaded: true,
   userId: undefined,
   cid: undefined,
   data: [],

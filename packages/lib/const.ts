@@ -49,7 +49,7 @@ export const socialLists = [
   {
     name: 'whatsapp',
     label: 'WhatsApp',
-    placeholder: '+9190000000000',
+    placeholder: 'https://wa.me/9190000000000',
     type: 'tel',
     index: 7,
   },

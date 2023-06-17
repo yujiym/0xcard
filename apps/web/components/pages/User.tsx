@@ -14,7 +14,7 @@ import { siteTitle } from '@0xcard/lib/const'
 
 export default function UserPage() {
   const { read, reading } = useWeb3Storage()
-  const { addContacts, removeContacts } = useSession()
+  const { addContact, removeContact } = useSession()
   const session = useAtomValue(sessionAtom)
   const users = useAtomValue(usersAtom)
   const params = useParams()
@@ -31,7 +31,12 @@ export default function UserPage() {
     <>
       {reading && <Loader />}
       <div className="fixed top-4 right-4 bg-primary/10 hover:bg-primary/20 rounded-full w-10 h-10 flex items-center justify-center">
-        <ShareButton cid={cid} />
+        <ShareButton
+          cid={cid}
+          name={`${
+            userData?.data?.find(el => el.name === 'name')?.content ?? ''
+          }'s`}
+        />
       </div>
       <main className="container-sm pt-12">
         {userData?.data && <Profile userData={userData?.data} klass="pb-16" />}
@@ -45,14 +50,14 @@ export default function UserPage() {
       {session?.userId && session.cid != cid ? (
         session.contacts.includes(cid) ? (
           <button
-            onClick={() => removeContacts(cid)}
+            onClick={() => removeContact(session.cid, cid)}
             className="fixed right-4 bottom-3 z-50 rounded-full h-16 w-16 flex justify-center items-center text-background bg-primary border-4 border-background "
           >
             <UserMinus2 />
           </button>
         ) : (
           <button
-            onClick={() => addContacts(cid)}
+            onClick={() => addContact(session.cid, cid)}
             className="fixed right-4 bottom-3 z-50 rounded-full h-16 w-16 flex justify-center items-center text-background bg-primary border-4 border-background "
           >
             <UserPlus2 />

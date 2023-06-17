@@ -20,10 +20,11 @@ import { wait, copyClipboard } from '@/lib/utils'
 
 type Props = {
   cid: string
+  name: string
   klass?: string
 }
 
-export default function ShareButton({ cid, klass = '' }: Props) {
+export default function ShareButton({ cid, name, klass = '' }: Props) {
   const { toast } = useToast()
 
   const copyToClipboard = async (str: string) => {
@@ -34,7 +35,7 @@ export default function ShareButton({ cid, klass = '' }: Props) {
     })
   }
 
-  return (
+  return cid ? (
     <Dialog>
       <DropdownMenu>
         <DropdownMenuTrigger className="w-full h-full flex items-center justify-center">
@@ -62,7 +63,7 @@ export default function ShareButton({ cid, klass = '' }: Props) {
       <DialogContent className="w-96 pt-10 pb-12">
         <DialogHeader>
           <DialogTitle className="font-mono text-center mb-6 text-xl">
-            My QR code
+            {name} QR
           </DialogTitle>
           <DialogDescription className="mx-auto">
             <QRCode
@@ -74,5 +75,5 @@ export default function ShareButton({ cid, klass = '' }: Props) {
         </DialogHeader>
       </DialogContent>
     </Dialog>
-  )
+  ) : null
 }

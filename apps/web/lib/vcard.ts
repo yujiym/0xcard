@@ -44,25 +44,25 @@ export const formatVcard = (data: any) => {
 
   if (data.about) {
     const about = new NoteProperty(
-      [new AltidParameter(new TextType('About'))],
+      [new AltidParameter(new TextType('ABOUT'))],
       new TextType(data.about)
     )
     arr.push(about)
   }
-  if (data.icon) {
+  if (data.photo1) {
     arr.push(
       new PhotoProperty(
         [new AltidParameter(new TextType('PROFILE-PUBLIC-PHOTO'))],
-        new URIType(data.icon)
+        new URIType(data.photo1)
       )
     )
   }
-  const photo = publicFields.find(f => f.name === 'photo')?.content
-  if (photo) {
+  const photo2 = publicFields.find(f => f.name === 'photo2')?.content
+  if (photo2) {
     arr.push(
       new PhotoProperty(
         [new AltidParameter(new TextType('PROFILE-PHOTO'))],
-        new URIType(photo)
+        new URIType(photo2)
       )
     )
   }

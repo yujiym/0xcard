@@ -10,13 +10,17 @@ export default function useWeb3Storage() {
   const [users, setUsers] = useAtom(usersAtom)
   const [reading, setReading] = useState<boolean>(false)
 
-  const upload = async (data: string) => {
-    const cid = await uploadData(data)
-    setSession({ ...session, cid })
-    console.log('upload complete - cid: ', cid)
+  const upload = async (data: string, w3name: string): Promise<string> => {
+    if (w3name) {
+      const res = await uploadData(data, session.userId, w3name)
+      return res
+    } else {
+      const res = await uploadData(data, session.userId)
+      return res
+    }
   }
 
-  const read = async (cid: string, me: boolean = true) => {
+  const read = async (cid: string, me: boolean = true): Promise<void> => {
     setReading(true)
     const res = await readData(cid)
     // @ts-ignore

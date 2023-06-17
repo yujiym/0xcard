@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Globe, Unlock, FileQuestion } from 'lucide-react'
-import ImgBC from 'assets/img/bc.png'
+import ImgBC1 from 'assets/img/bc-public.png'
+import ImgBC2 from 'assets/img/bc-friends.png'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs'
 import { siteTitle, siteDescription } from '@0xcard/lib/const'
 
@@ -25,10 +26,15 @@ export default function TopPage() {
           </h2>
           <ul className="pt-12 text-sm">
             <li>
-              <a className="flex items-center">
+              <Link
+                className="flex items-center"
+                href="/img/how-it-works.png"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 <FileQuestion size={18} className="mr-1.5" />
                 How it works?
-              </a>
+              </Link>
             </li>
           </ul>
           <Link
@@ -61,7 +67,7 @@ export default function TopPage() {
             <TabsContent value="public">
               <Image
                 alt="businesscard"
-                src={ImgBC}
+                src={ImgBC1}
                 width={240}
                 className="-mb-80 md:mb-0 opacity-90 mx-auto"
               />
@@ -69,7 +75,7 @@ export default function TopPage() {
             <TabsContent value="private">
               <Image
                 alt="businesscard"
-                src={ImgBC}
+                src={ImgBC2}
                 width={240}
                 className="-mb-80 md:mb-0 opacity-90 mx-auto"
               />
