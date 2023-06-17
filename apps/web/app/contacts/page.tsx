@@ -1,25 +1,11 @@
-'use client'
-import { useIsAuthenticated } from '@polybase/react'
-import Header from '@/components/Header'
-import Nav from '@/components/Nav'
-import Loader from '@/components/Loader'
-import SigninScreen from '@/components/SigninScreen'
+import { Metadata } from 'next'
+import ContactsPage from '@/components/pages/Contacts'
+import { siteTitle } from '@0xcard/lib/const'
 
-export default function Page() {
-  const [isLoggedIn, loading] = useIsAuthenticated()
+export const metadata: Metadata = {
+  title: `Contacts | ${siteTitle}`,
+}
 
-  return (
-    <>
-      {loading && <Loader />}
-      {isLoggedIn ? (
-        <>
-          <Header>Contacts</Header>
-          <main className="container-sm"></main>
-          <Nav />
-        </>
-      ) : (
-        <SigninScreen />
-      )}
-    </>
-  )
+export default async function Page() {
+  return <ContactsPage />
 }

@@ -3,7 +3,6 @@ import { siteTitle, siteDescription } from '@0xcard/lib/const'
 export default function MetaTags(): JSX.Element {
   return (
     <>
-      <title>{siteTitle}</title>
       <meta name="description" content={siteDescription} />
       <meta
         name="viewport"
@@ -55,7 +54,7 @@ export default function MetaTags(): JSX.Element {
         sizes="16x16"
       />
       <link rel="icon" href="/icons/favicon.ico" />
-      <link rel="manifest" href="/manifest.json" />
+      {/* <link rel="manifest" href="/manifest.json" /> */}
     </>
   )
 }

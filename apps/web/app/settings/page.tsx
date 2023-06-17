@@ -1,37 +1,11 @@
-'use client'
-import { useIsAuthenticated, useAuth } from '@polybase/react'
-import { useRouter } from 'next/navigation'
-import Header from '@/components/Header'
-import Nav from '@/components/Nav'
-import Loader from '@/components/Loader'
-import SigninScreen from '@/components/SigninScreen'
+import { Metadata } from 'next'
+import SettingsPage from '@/components/pages/Settings'
+import { siteTitle } from '@0xcard/lib/const'
 
-export default function Page() {
-  const [isLoggedIn, loading] = useIsAuthenticated()
-  const { auth } = useAuth()
-  const router = useRouter()
+export const metadata: Metadata = {
+  title: `Settings | ${siteTitle}`,
+}
 
-  const signOut = async () => {
-    await auth?.signOut()
-    router.push('/')
-  }
-
-  return (
-    <>
-      {loading && <Loader />}
-      {isLoggedIn ? (
-        <>
-          <Header>Settings</Header>
-          <main className="container-sm">
-            <button className="btn-outline" onClick={() => signOut()}>
-              SignOut
-            </button>
-            <Nav />
-          </main>
-        </>
-      ) : (
-        <SigninScreen />
-      )}
-    </>
-  )
+export default async function Page() {
+  return <SettingsPage />
 }
