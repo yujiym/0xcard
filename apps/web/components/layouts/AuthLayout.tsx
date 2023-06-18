@@ -13,7 +13,7 @@ export default function AuthLayout({
       <>
         {children}
         <Toaster />
-        <DevTools />
+        {/* <DevTools /> */}
       </>
     </PolybaseWrapper>
   )
