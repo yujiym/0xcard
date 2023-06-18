@@ -1,0 +1,9 @@
+{
+  "name": "@0xcard/lit-action",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "@lit-protocol/lit-node-client-nodejs": "^2.2.26"
+  }
+}

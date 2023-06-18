@@ -11,6 +11,8 @@
   "dependencies": {
     "@0xcard/lib": "workspace:*",
     "@hookform/resolvers": "^3.1.0",
+    "@lit-protocol/auth-browser": "^2.2.26",
+    "@lit-protocol/lit-node-client": "^2.2.26",
     "@polybase/auth": "^0.6.1",
     "@polybase/client": "^0.6.1",
     "@polybase/react": "^0.6.1",
