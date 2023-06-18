@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/Dialog'
 import { useToast } from '@/hooks/useToast'
 import { wait, copyClipboard } from '@/lib/utils'
+import { siteUrl } from '@0xcard/lib/const'
 
 type Props = {
   cid: string
@@ -52,7 +53,7 @@ export default function ShareButton({ cid, name, klass = '' }: Props) {
           <DropdownMenuItem className="px-3 py-2">
             <button
               className="flex items-center"
-              onClick={() => copyToClipboard(`https://0x.cards/${cid}`)}
+              onClick={() => copyToClipboard(`${siteUrl}/${cid}`)}
             >
               <ClipboardCopy size={18} className="mr-2" />
               Copy URL
@@ -67,7 +68,7 @@ export default function ShareButton({ cid, name, klass = '' }: Props) {
           </DialogTitle>
           <DialogDescription className="mx-auto">
             <QRCode
-              value={`https://0x.cards/${cid}`}
+              value={`${siteUrl}/${cid}`}
               bgColor="transparent"
               fgColor="hsl(var(--primary))"
             />
