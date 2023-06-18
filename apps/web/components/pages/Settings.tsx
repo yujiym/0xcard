@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import { useAtomValue } from 'jotai'
 import { useResetAtom } from 'jotai/utils'
 import { useIsAuthenticated, useAuth } from '@polybase/react'
@@ -12,6 +13,8 @@ import { sessionAtom } from '@/lib/atoms'
 import { ChevronRight, LogOut, Package } from 'lucide-react'
 import useSession from '@/hooks/useSession'
 import { isFriends } from '@0xcard/lit-action/IPFS.js'
+import { getCidLink } from '@/lib/web3Storage'
+import { useEffect } from 'react'
 
 export default function SettingsPage() {
   const [isLoggedIn, loading] = useIsAuthenticated()
@@ -58,6 +61,17 @@ export default function SettingsPage() {
     console.log('recordData:  ', recordData)
   }
 
+  const [link, setLink] = useState('')
+
+  useEffect(() => {
+    ;(async () => {
+      if (cid) {
+        const res = await getCidLink(cid)
+        setLink(res)
+      }
+    })()
+  }, [cid])
+
   const List = ({ children }) => (
     <li className="border-b border-dotted">{children}</li>
   )
@@ -72,20 +86,36 @@ export default function SettingsPage() {
             <ul className="border-t border-dotted mt-20 sm:mx-12">
               <List>
                 {cid ? (
-                  <a
-                    className="pl-6 pr-5 py-5 w-full flex justify-between"
-                    href={`https://name.web3.storage/name/${cid}`}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                  >
-                    <span className="flex items-center">
-                      <Package className="mr-3" />
-                      Show IPFS data
-                    </span>
-                    <span>
-                      <ChevronRight />
-                    </span>
-                  </a>
+                  <>
+                    <a
+                      className="pl-6 pr-5 py-5 w-full flex justify-between"
+                      href={`https://name.web3.storage/name/${cid}`}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      <span className="flex items-center">
+                        <Package className="mr-3" />
+                        Show IPFS File (IPNS)
+                      </span>
+                      <span>
+                        <ChevronRight />
+                      </span>
+                    </a>
+                    <a
+                      className="pl-6 pr-5 py-5 w-full flex justify-between"
+                      href={link}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                    >
+                      <span className="flex items-center">
+                        <Package className="mr-3" />
+                        Show IPFS data (web3.storage)
+                      </span>
+                      <span>
+                        <ChevronRight />
+                      </span>
+                    </a>
+                  </>
                 ) : (
                   <p className="pl-6 pr-5 py-5 w-full flex justify-between text-primary/60 cursor-not-allowed">
                     <span className="flex items-center">

@@ -40,6 +40,12 @@ export const uploadData = async (
   }
 }
 
+export const getCidLink = async (w3name: string): Promise<string> => {
+  const name = Name.parse(w3name)
+  const revision = await Name.resolve(name)
+  return `https://${revision.value.replace(/^\/ipfs\//, '')}.ipfs.w3s.link/`
+}
+
 export const readData = async (w3name: string): Promise<string> => {
   try {
     const name = Name.parse(w3name)
