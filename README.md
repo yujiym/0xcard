@@ -1,81 +1,40 @@
-# Turborepo starter
+# Card Protocol
 
-This is an official starter Turborepo.
+Decentralized business card protocol with privacy. The data is stored in IPFS & decentralized db, and encrypted with Lit Protocol.
 
-## Using this example
+This repository is for a [HackFS2023](https://www.ethglobal.com/events/hackfs2023) project.
 
-Run the following command:
+## Description
 
-```sh
-npx create-turbo@latest
-```
+### 😑 Problem:
 
-## What's inside?
+Exchanging contact information at events is a hassle. Own your data, but privacy is important.
+Existing vCard formats and solutions such as Linktree make all information public., so we can't handle sensitive/private data.
+I saw hackathon participants recruiting teammates by posting LinkedIn links or something similar. and wondered if I could make something better with crypto.
 
-This Turborepo includes the following packages/apps:
+### 💡 Solution:
 
-### Apps and Packages
+A Linktree-like UI allows users to create pages.
+Executing save on the profile screen saves the minimum information for contact list display and association in polybase, and saves all data in VCF format in IPFS.
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+For items with the public range set to "in each other's contact list," the data is saved encrypted with Lit Protocol and will not be decrypted unless both parties are in each other's contact list.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+Since this is an existing VCF format, it is easy to import the data with a smartphone and exchange it via URL reference or file passing of NCF tags.
 
-### Utilities
+- e.g. My telegram id is only shared with whom I have exchanged contact information. (Exists on each other's contact list.)
+- e.g. NFT icons are public, actual photos are only viewable to those who have exchanged contact information (Solving the problem of who was him/her after the event)
 
-This Turborepo has some additional tools already setup for you:
+### 💊 Feature Plans:
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+I'm currently implementing only the basic functionality and the simple condition of "only open to each other's contacts," but I'm also considering extending this to include Lit Protocol conditions, event participants who hold POAPs, and other groupings with ZKP, etc.
 
-### Build
+## How it's made
 
-To build all apps and packages, run the following command:
+The system architecture details is below link:
+![architecture](https://0x.cards/img/how-it-works.png)
 
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- web3storage: Upload/read the user's contact data in vCard format to IPFS.
+- w3name: Makes the user's contact file address immutable. This CID is also used for use's URLs.
+  (https://0x.cards/bafybeiengmxblvgc7byhiksb3ykdnji3px22j4fjglya3lhw6zzua2z4vu)
+- polybase: Polybase Auth for singn in with wallet or email. The main data is stored in IPFS, and is used to store additional information such as indexing infomation about the user for display (Contact ids, User's keys ...)
+- Lit Protocol: Encrypt/decrypt user's private fields. LitAction is placed in IPFS and decrypt is performed by referencing the Contact table in polybase to determine if we are on each other's Contact list (know each other).
