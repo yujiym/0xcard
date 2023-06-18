@@ -1,8 +1,7 @@
 # Card Protocol
+Decentralized business card protocol with privacy. The data is stored in IPFS & decentralized db, and encrypted with Lit Protocol. This repository is for a [HackFS2023](https://www.ethglobal.com/events/hackfs2023) project.
 
-Decentralized business card protocol with privacy. The data is stored in IPFS & decentralized db, and encrypted with Lit Protocol.
-
-This repository is for a [HackFS2023](https://www.ethglobal.com/events/hackfs2023) project.
+<img src="https://github.com/yujiym/0xcard/assets/1409395/3c9aa663-d48d-4f17-a392-04c26a816eb0" width="240px" />
 
 ## Description
 
