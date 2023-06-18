@@ -142,7 +142,7 @@ export default function ProfileForm() {
           index={8}
         />
         <h3 className="mt-8 mb-6 font-mono text-xl border-l-8 px-3">
-          Other Links
+          Other Links (TBD)
         </h3>
         <CustomInputField placeholder="https://example.com" index={0} />
         <CustomInputField placeholder="https://example.com" index={1} />

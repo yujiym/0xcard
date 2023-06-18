@@ -3,14 +3,20 @@ import * as LitJsSdk from '@lit-protocol/lit-node-client'
 const chain = 'ethereum'
 
 // Conditions of users with entered did and mutual followings.
-const createAccessConditions = (cid: string, targetCid: string) => {
+const createAccessConditions = (
+  userId: string,
+  targetUserId: string,
+  cid: string,
+  targetCid: string
+) => {
   return [
     {
-      contractAddress: 'ipfs://aaaaa',
+      contractAddress:
+        'https://bafybeiengmxblvgc7byhiksb3ykdnji3px22j4fjglya3lhw6zzua2z4vu.ipfs.w3s.link/IPFS.js',
       standardContractType: 'LitAction',
       chain,
       method: 'isFriends',
-      parameters: [cid, targetCid],
+      parameters: [userId, targetUserId, cid, targetCid],
       returnValueTest: {
         comparator: '=',
         value: 'true',
@@ -21,6 +27,8 @@ const createAccessConditions = (cid: string, targetCid: string) => {
 
 // return encryptedSymmetricKey, EncryptedString
 export const encryptAndSave = async (
+  userId: string,
+  targetUserId: string,
   cid: string,
   targetCid: string,
   input: string
@@ -30,7 +38,12 @@ export const encryptAndSave = async (
   const client = new LitJsSdk.LitNodeClient({ litNetwork: 'serrano' })
   await client.connect()
   const encryptedSymmetricKey = await client.saveEncryptionKey({
-    accessControlConditions: createAccessConditions(cid, targetCid),
+    accessControlConditions: createAccessConditions(
+      userId,
+      targetUserId,
+      cid,
+      targetCid
+    ),
     symmetricKey,
     authSig,
     chain,
@@ -52,7 +65,12 @@ export const decryptAndRead = async (
   const client = new LitJsSdk.LitNodeClient({ litNetwork: 'serrano' })
   await client.connect()
   const symmetricKey = await client.getEncryptionKey({
-    accessControlConditions: createAccessConditions(cid, targetCid),
+    accessControlConditions: createAccessConditions(
+      userId,
+      targetUserId,
+      cid,
+      targetCid
+    ),
     toDecrypt: encryptedSymmetricKey,
     chain,
     authSig,

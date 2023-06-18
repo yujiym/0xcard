@@ -4,30 +4,35 @@ import { db } from '@/components/PolybaseWrapper'
 // collection User {
 //   id: string;
 //   cid: string;
-//   name?: string;
+//   name: string;
 //   photo1?: string;
+//   contacts?: string[];
 //   publicKey: PublicKey;
 //
-// constructor (id: string, cid: string, name: string, photo1: string) {
-//   this.id = id;
-//   this.cid = cid;
-//   this.name = name;
-//   if (photo1) {
-//     this.photo1 = photo1;
+//   constructor (id: string, cid: string, name: string, photo1: string) {
+//     this.id = id;
+//     this.cid = cid;
+//     this.name = name;
+//     if (photo1) {
+//       this.photo1 = photo1;
+//     }
+//     this.publicKey = ctx.publicKey;
 //   }
-//   this.publicKey = ctx.publicKey;
-// }
+
+//   setUser (cid: string, name: string, photo1: string) {
+//     if (ctx.publicKey != this.publicKey) {
+//       error('You are not the creator of this record.');
+//     }
+//     this.cid = cid;
+//     this.name = name;
+//     if (photo1) {
+//       this.photo1 = photo1;
+//     }
+//   }
 //
-// setUser (cid: string, name: string, photo1: string) {
-//   if (ctx.publicKey != this.publicKey) {
-//     error('You are not the creator of this record.');
+//   addContact (targetCid: string) {
+//     this.contacts.push(targetCid);
 //   }
-//   this.cid = cid;
-//   this.name = name;
-//   if (photo1) {
-//     this.photo1 = photo1;
-//   }
-// }
 //
 //   del () {
 //     if (ctx.publicKey != this.publicKey) {
@@ -36,6 +41,7 @@ import { db } from '@/components/PolybaseWrapper'
 //     selfdestruct();
 //   }
 // }
+
 const userRef = db.collection('User')
 
 export const getUser = async (id: string): Promise<any> => {
@@ -61,35 +67,12 @@ export const updateUser = async (
   await userRef.record(id).call('setUser', [cid, name, photo1])
 }
 
-// @public
-// collection Contact {
-//   id: string;
-//   cid: string;
-//   targetCid: string;
-//   publicKey: PublicKey;
-//
-//   constructor (cid: string, targetCid: string) {
-//     this.id = cid + '-' +  targetCid;
-//     this.cid = cid;
-//     this.targetCid = targetCid;
-//     this.publicKey = ctx.publicKey;
-//   }
-//
-//   del () {
-//     if (ctx.publicKey != this.publicKey) {
-//       error('You are not the creator of this record.');
-//     }
-//     selfdestruct();
-//   }
-// }
-const contactRef = db.collection('Contact')
-
-export const addUserContact = async (cid: string, targetCid: string) => {
-  await contactRef.create([cid, targetCid])
+export const addUserContact = async (id: string, targetCid: string) => {
+  await userRef.record(id).call('addContact', [targetCid])
 }
 
-export const removeUserContact = async (cid: string, targetCid: string) => {
-  await contactRef.record(`${cid}-${targetCid}`).call('del')
+export const removeUserContact = async (id: string, targetCid: string) => {
+  await userRef.record(id).call('removeContact', [targetCid])
 }
 
 // collection UserKey {

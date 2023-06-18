@@ -11,6 +11,7 @@ import { db } from '@/components/PolybaseWrapper'
 import { sessionAtom } from '@/lib/atoms'
 import { ChevronRight, LogOut, Package } from 'lucide-react'
 import useSession from '@/hooks/useSession'
+import { isFriends } from '@0xcard/lit-action/IPFS.js'
 
 export default function SettingsPage() {
   const [isLoggedIn, loading] = useIsAuthenticated()
@@ -31,6 +32,30 @@ export default function SettingsPage() {
     await auth?.signOut()
     resetSession()
     router.push('/')
+  }
+
+  const test = async () => {
+    const userId = '0xfecdee466589287071b62a05f364983c773c422e'
+    const cid = 'k51qzi5uqu5djs1gnuskf1ybn3okcx4dgkj785pw86q3ofxqhpnzhi1vf2dt2k'
+    const targetUserId =
+      '0x95f23f05f69b54a3bcb672ea2e5f8bc8f7b07e1f2a8ea9ff31381dadd68e9ecb'
+    const targetCid =
+      'k51qzi5uqu5dgfzkz74vel5diqhl3d1wza9talhf56onp3788xjmyj1ua4f5dw'
+
+    const res = await isFriends(userId, targetUserId, cid, targetCid)
+    console.log('isFriends: ', res)
+  }
+
+  const setContact = async () => {
+    const recordData = await userRef
+      .record(state.userId)
+      .call('setContacts', [
+        [
+          'k51qzi5uqu5djs1gnuskf1ybn3okcx4dgkj785pw86q3ofxqhpnzhi1vf2dt2k',
+          'k51qzi5uqu5dgfzkz74vel5diqhl3d1wza9talhf56onp3788xjmyj1ua4f5dw',
+        ],
+      ])
+    console.log('recordData:  ', recordData)
   }
 
   const List = ({ children }) => (
@@ -87,16 +112,35 @@ export default function SettingsPage() {
                   </span>
                 </button>
               </List>
-
+              <p className="mt-20 text-center">Dev Menu</p>
               <List>
                 <button
                   className="pl-6 pr-5 py-5 w-full flex justify-between"
                   onClick={() => deleteUser()}
                 >
-                  <span className="flex items-center">
-                    <LogOut className="mr-3" />
-                    del
+                  <span className="flex items-center">del</span>
+                  <span>
+                    <ChevronRight />
                   </span>
+                </button>
+              </List>
+              <List>
+                <button
+                  className="pl-6 pr-5 py-5 w-full flex justify-between"
+                  onClick={() => setContact()}
+                >
+                  <span className="flex items-center">Set Contacts</span>
+                  <span>
+                    <ChevronRight />
+                  </span>
+                </button>
+              </List>
+              <List>
+                <button
+                  className="pl-6 pr-5 py-5 w-full flex justify-between"
+                  onClick={() => test()}
+                >
+                  <span className="flex items-center">LitAction</span>
                   <span>
                     <ChevronRight />
                   </span>

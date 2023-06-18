@@ -1,6 +1,6 @@
 export const siteUrl: string =
   process.env.NODE_ENV === 'development'
-    ? 'https://localhost:3000'
+    ? 'http://localhost:3000'
     : ('https://0x.cards' as const)
 export const siteTitle: string = '0xCARD' as const
 export const siteDescription: string =

@@ -39,6 +39,7 @@ export default function useSession() {
             ...session,
             loaded: true,
             cid: res.cid,
+            contacts: res?.contacts ?? [],
           })
         }
       }
@@ -68,27 +69,27 @@ export default function useSession() {
     }
   }
 
-  const addContact = async (cid: string, targetCid: string) => {
+  const addContact = async (targetCid: string) => {
     try {
       setSession({
         ...session,
-        contacts: [...session.contacts, cid],
+        contacts: [...session.contacts, targetCid],
       })
-      await addUserContact(cid, targetCid)
+      await addUserContact(session.userId, targetCid)
       toast({ description: 'Added to contacts.' })
     } catch (e) {
-      console.log('error - addContacts: ', e)
+      console.log('error - addContact: ', e)
       throw e
     }
   }
 
-  const removeContact = async (cid: string, targetCid: string) => {
+  const removeContact = async (targetCid: string) => {
     try {
       setSession({
         ...session,
-        contacts: session.contacts.filter((c: string) => c !== cid),
+        contacts: session.contacts.filter((c: string) => c !== targetCid),
       })
-      await removeUserContact(cid, targetCid)
+      await removeUserContact(session.userId, targetCid)
       toast({ description: 'Remove from contacts.' })
     } catch (e) {
       console.log('error - removeContacts: ', e)

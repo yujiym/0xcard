@@ -102,7 +102,7 @@ importers:
         version: 1.0.8
       web3.storage:
         specifier: ^4.5.4
-        version: 4.5.4
+        version: 4.5.4(node-fetch@2.6.11)
       zod:
         specifier: ^3.21.4
         version: 3.21.4
@@ -110,6 +110,9 @@ importers:
       '@0xcard/config':
         specifier: workspace:*
         version: link:../../packages/config
+      '@0xcard/lit-action':
+        specifier: workspace:*
+        version: link:../../packages/litAction
       '@0xcard/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
@@ -5295,7 +5298,7 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /ipfs-car@0.7.0:
+  /ipfs-car@0.7.0(node-fetch@2.6.11):
     resolution: {integrity: sha512-9ser6WWZ1ZMTCGbcVkRXUzOrpQ4SIiLfzIEnk+3LQsXbV09yeZg3ijhRuEXozEIYE68Go9JmOFshamsK9iKlNQ==}
     hasBin: true
     dependencies:
@@ -5306,8 +5309,8 @@ packages:
       browser-readablestream-to-it: 1.0.3
       idb-keyval: 6.2.1
       interface-blockstore: 2.0.3
-      ipfs-core-types: 0.8.4
-      ipfs-core-utils: 0.12.2
+      ipfs-core-types: 0.8.4(node-fetch@2.6.11)
+      ipfs-core-utils: 0.12.2(node-fetch@2.6.11)
       ipfs-unixfs-exporter: 7.0.11
       ipfs-unixfs-importer: 9.0.10
       ipfs-utils: 9.0.14
@@ -5340,7 +5343,7 @@ packages:
       - supports-color
     dev: false
 
-  /ipfs-core-types@0.8.4:
+  /ipfs-core-types@0.8.4(node-fetch@2.6.11):
     resolution: {integrity: sha512-sbRZA1QX3xJ6ywTiVQZMOxhlhp4osAZX2SXx3azOLxAtxmGWDMkHYt722VV4nZ2GyJy8qyk5GHQIZ0uvQnpaTg==}
     deprecated: js-IPFS has been deprecated in favour of Helia - please see https://github.com/ipfs/js-ipfs/issues/4336 for details
     dependencies:
@@ -5352,7 +5355,7 @@ packages:
       - supports-color
     dev: false
 
-  /ipfs-core-utils@0.12.2:
+  /ipfs-core-utils@0.12.2(node-fetch@2.6.11):
     resolution: {integrity: sha512-RfxP3rPhXuqKIUmTAUhmee6fmaV3A7LMnjOUikRKpSyqESz/DR7aGK7tbttMxkZdkSEr0rFXlqbyb0vVwmn0wQ==}
     deprecated: js-IPFS has been deprecated in favour of Helia - please see https://github.com/ipfs/js-ipfs/issues/4336 for details
     dependencies:
@@ -5361,7 +5364,7 @@ packages:
       browser-readablestream-to-it: 1.0.3
       debug: 4.3.4
       err-code: 3.0.1
-      ipfs-core-types: 0.8.4
+      ipfs-core-types: 0.8.4(node-fetch@2.6.11)
       ipfs-unixfs: 6.0.9
       ipfs-utils: 9.0.14
       it-all: 1.0.6
@@ -8580,7 +8583,7 @@ packages:
     resolution: {integrity: sha512-qRkpmSeKfEWAzNhtX541xA8gCJ+pqCqBmUlDVkVDSCSYUvfvNqF+k9g8I+uyreRcDBdfiJrd0/aLbTy5ydo49Q==}
     dev: false
 
-  /web3.storage@4.5.4:
+  /web3.storage@4.5.4(node-fetch@2.6.11):
     resolution: {integrity: sha512-QSdiPEMgXCkk9Y0y3U1pyTu8n1TOOctwq7h9Loz7NYPla9QZesbg4lSxe0XWPltzyJEkI43yC1hy8gNxNEiizA==}
     dependencies:
       '@ipld/car': 3.2.4
@@ -8592,7 +8595,7 @@ packages:
       carbites: 1.0.6
       cborg: 1.10.2
       files-from-path: 0.2.6
-      ipfs-car: 0.7.0
+      ipfs-car: 0.7.0(node-fetch@2.6.11)
       libp2p-crypto: 0.21.2
       p-retry: 4.6.2
       streaming-iterables: 6.2.0

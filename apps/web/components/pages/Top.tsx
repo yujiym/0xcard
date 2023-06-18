@@ -45,10 +45,10 @@ export default function TopPage() {
           </Link>
         </div>
       </div>
-      <div className="flex md:flex-1 flex-auto items-center justify-center bg-primary text-background p-8 overflow-hidden">
+      <div className="flex md:flex-1 flex-auto items-center justify-center bg-primary text-background px-8 overflow-hidden">
         <div>
           <Tabs defaultValue="public" className="w-[240]">
-            <TabsList className="mb-2 w-full bg-gray-200/50 text-primary rounded-sm px-1 py-0.5 h-9">
+            <TabsList className="mb-4 w-full bg-gray-200/50 text-primary rounded-sm px-1 py-0.5 h-9">
               <TabsTrigger
                 value="public"
                 className="flex-1 data-[state=active]:bg-gray-200/90 data-[state=active]:text-primary rounded-sm text-xs"

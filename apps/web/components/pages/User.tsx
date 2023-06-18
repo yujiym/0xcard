@@ -50,14 +50,14 @@ export default function UserPage() {
       {session?.userId && session.cid != cid ? (
         session.contacts.includes(cid) ? (
           <button
-            onClick={() => removeContact(session.cid, cid)}
+            onClick={() => removeContact(cid)}
             className="fixed right-4 bottom-3 z-50 rounded-full h-16 w-16 flex justify-center items-center text-background bg-primary border-4 border-background "
           >
             <UserMinus2 />
           </button>
         ) : (
           <button
-            onClick={() => addContact(session.cid, cid)}
+            onClick={() => addContact(cid)}
             className="fixed right-4 bottom-3 z-50 rounded-full h-16 w-16 flex justify-center items-center text-background bg-primary border-4 border-background "
           >
             <UserPlus2 />
