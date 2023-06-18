@@ -10,7 +10,7 @@ export default function useWeb3Storage() {
   const [users, setUsers] = useAtom(usersAtom)
   const [reading, setReading] = useState<boolean>(false)
 
-  const upload = async (data: string, w3name: string): Promise<string> => {
+  const upload = async (data: string, w3name?: string): Promise<string> => {
     if (w3name) {
       const res = await uploadData(data, session.userId, w3name)
       return res
@@ -24,7 +24,11 @@ export default function useWeb3Storage() {
     setReading(true)
     const res = await readData(cid)
     // @ts-ignore
-    const data: any[] = parseVcard(res)?.parsedVcard
+    const { data, privateFields }: any = await parseVcard(
+      res,
+      session.userId,
+      cid
+    )
     const socialData = socialLists.map(item => {
       return {
         name: item.name,

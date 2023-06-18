@@ -5,18 +5,18 @@ const chain = 'ethereum'
 // Conditions of users with entered did and mutual followings.
 const createAccessConditions = (
   userId: string,
-  targetUserId: string,
   cid: string,
-  targetCid: string
+  targetUserId?: string,
+  targetCid?: string
 ) => {
   return [
     {
       contractAddress:
-        'https://bafybeiengmxblvgc7byhiksb3ykdnji3px22j4fjglya3lhw6zzua2z4vu.ipfs.w3s.link/IPFS.js',
+        'ipfs://bafybeia5qaauni2t34gub2rpekju755dlostnfydrfz6su4gak2s2ejcz4',
       standardContractType: 'LitAction',
       chain,
       method: 'isFriends',
-      parameters: [userId, targetUserId, cid, targetCid],
+      parameters: [userId, cid, targetUserId ?? '', , targetCid ?? ''],
       returnValueTest: {
         comparator: '=',
         value: 'true',
@@ -27,11 +27,11 @@ const createAccessConditions = (
 
 // return encryptedSymmetricKey, EncryptedString
 export const encryptAndSave = async (
+  input: string,
   userId: string,
-  targetUserId: string,
   cid: string,
-  targetCid: string,
-  input: string
+  targetUserId?: string,
+  targetCid?: string
 ): Promise<[string, string]> => {
   const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(input)
   const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain })
@@ -40,8 +40,8 @@ export const encryptAndSave = async (
   const encryptedSymmetricKey = await client.saveEncryptionKey({
     accessControlConditions: createAccessConditions(
       userId,
-      targetUserId,
       cid,
+      targetUserId,
       targetCid
     ),
     symmetricKey,
@@ -56,10 +56,12 @@ export const encryptAndSave = async (
 
 // return DecryptedString
 export const decryptAndRead = async (
-  cid: string,
-  targetCid: string,
   encryptedSymmetricKey: string,
-  encryptedStr: string
+  encryptedStr: string,
+  userId: string,
+  cid: string,
+  targetUserId?: string,
+  targetCid?: string
 ): Promise<string> => {
   const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain })
   const client = new LitJsSdk.LitNodeClient({ litNetwork: 'serrano' })
@@ -67,8 +69,8 @@ export const decryptAndRead = async (
   const symmetricKey = await client.getEncryptionKey({
     accessControlConditions: createAccessConditions(
       userId,
-      targetUserId,
       cid,
+      targetUserId,
       targetCid
     ),
     toDecrypt: encryptedSymmetricKey,

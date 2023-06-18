@@ -74,8 +74,8 @@ export default function ProfileForm() {
 
   const onSubmit = async (data: any) => {
     try {
-      const vcf = formatVcard(data)
-      const res = await upload(vcf, cid)
+      const vcf = await formatVcard(data, sessionData.userId, sessionData.cid)
+      const res = await upload(vcf)
       const record = await setUser(
         cid ? 'update' : 'new',
         res,
