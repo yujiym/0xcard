@@ -11,8 +11,7 @@ const createAccessConditions = (
 ) => {
   return [
     {
-      contractAddress:
-        'ipfs://bafybeia5qaauni2t34gub2rpekju755dlostnfydrfz6su4gak2s2ejcz4',
+      contractAddress: 'ipfs://QmeqexcVE3j118TrgJkjzsA7kQgoAFsbcfEhE43rbrbjBF',
       standardContractType: 'LitAction',
       chain,
       method: 'isFriends',
