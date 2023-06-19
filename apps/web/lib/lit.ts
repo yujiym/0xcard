@@ -35,7 +35,11 @@ export const encryptAndSave = async (
 ): Promise<[string, string]> => {
   const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(input)
   const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain })
-  const client = new LitJsSdk.LitNodeClient({ litNetwork: 'serrano' })
+  const client = new LitJsSdk.LitNodeClient({
+    litNetwork: 'serrano',
+    alertWhenUnauthorized: true,
+    debug: true,
+  })
   await client.connect()
   const encryptedSymmetricKey = await client.saveEncryptionKey({
     accessControlConditions: createAccessConditions(
@@ -64,7 +68,11 @@ export const decryptAndRead = async (
   targetCid?: string
 ): Promise<string> => {
   const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain })
-  const client = new LitJsSdk.LitNodeClient({ litNetwork: 'serrano' })
+  const client = new LitJsSdk.LitNodeClient({
+    litNetwork: 'serrano',
+    alertWhenUnauthorized: true,
+    debug: true,
+  })
   await client.connect()
   const symmetricKey = await client.getEncryptionKey({
     accessControlConditions: createAccessConditions(
