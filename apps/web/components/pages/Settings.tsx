@@ -105,7 +105,7 @@ export default function SettingsPage() {
                     </a>
                     <a
                       className="pl-6 pr-5 py-5 w-full flex justify-between"
-                      href={link}
+                      href={`${link}/me.vcf`}
                       target="_blank"
                       rel="noreferrer noopener"
                     >
