@@ -14,7 +14,7 @@ import { db } from '@/components/PolybaseWrapper'
 import { sessionAtom } from '@/lib/atoms'
 import { ChevronRight, LogOut, Package } from 'lucide-react'
 import useSession from '@/hooks/useSession'
-import { isFriends } from '@0xcard/lit-action/IPFS.js'
+import { go } from '@0xcard/lit-action/IPFS.js'
 import { getCidLink } from '@/lib/web3Storage'
 
 export default function SettingsPage() {
@@ -47,7 +47,7 @@ export default function SettingsPage() {
     const targetCid =
       'k51qzi5uqu5dgfzkz74vel5diqhl3d1wza9talhf56onp3788xjmyj1ua4f5dw'
 
-    const res = await isFriends(userId, targetUserId, cid, targetCid)
+    const res = await go(userId, targetUserId, cid, targetCid)
     console.log('isFriends: ', res)
   }
 

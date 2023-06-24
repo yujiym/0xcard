@@ -11,10 +11,10 @@ const createAccessConditions = (
 ) => {
   return [
     {
-      contractAddress: 'ipfs://QmeqexcVE3j118TrgJkjzsA7kQgoAFsbcfEhE43rbrbjBF',
+      contractAddress: process.env.NEXT_PUBLIC_LITACTION_IPFS,
       standardContractType: 'LitAction',
       chain,
-      method: 'isFriends',
+      method: 'go',
       parameters: [userId, cid, targetUserId ?? '', , targetCid ?? ''],
       returnValueTest: {
         comparator: '=',
