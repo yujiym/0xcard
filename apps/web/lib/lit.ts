@@ -11,11 +11,10 @@ const createAccessConditions = (
 ) => {
   return [
     {
-      contractAddress:
-        'ipfs://bafybeia5qaauni2t34gub2rpekju755dlostnfydrfz6su4gak2s2ejcz4',
+      contractAddress: process.env.NEXT_PUBLIC_LITACTION_IPFS,
       standardContractType: 'LitAction',
       chain,
-      method: 'isFriends',
+      method: 'go',
       parameters: [userId, cid, targetUserId ?? '', , targetCid ?? ''],
       returnValueTest: {
         comparator: '=',
@@ -35,7 +34,11 @@ export const encryptAndSave = async (
 ): Promise<[string, string]> => {
   const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(input)
   const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain })
-  const client = new LitJsSdk.LitNodeClient({ litNetwork: 'serrano' })
+  const client = new LitJsSdk.LitNodeClient({
+    litNetwork: 'serrano',
+    alertWhenUnauthorized: true,
+    debug: true,
+  })
   await client.connect()
   const encryptedSymmetricKey = await client.saveEncryptionKey({
     accessControlConditions: createAccessConditions(
@@ -64,7 +67,11 @@ export const decryptAndRead = async (
   targetCid?: string
 ): Promise<string> => {
   const authSig = await LitJsSdk.checkAndSignAuthMessage({ chain })
-  const client = new LitJsSdk.LitNodeClient({ litNetwork: 'serrano' })
+  const client = new LitJsSdk.LitNodeClient({
+    litNetwork: 'serrano',
+    alertWhenUnauthorized: true,
+    debug: true,
+  })
   await client.connect()
   const symmetricKey = await client.getEncryptionKey({
     accessControlConditions: createAccessConditions(

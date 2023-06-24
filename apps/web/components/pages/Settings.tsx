@@ -1,9 +1,11 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAtomValue } from 'jotai'
 import { useResetAtom } from 'jotai/utils'
 import { useIsAuthenticated, useAuth } from '@polybase/react'
 import { useRouter } from 'next/navigation'
+// @ts-ignore
+import { ethConnect } from '@lit-protocol/auth-browser'
 import Header from '@/components/Header'
 import Nav from '@/components/Nav'
 import Loader from '@/components/Loader'
@@ -12,9 +14,8 @@ import { db } from '@/components/PolybaseWrapper'
 import { sessionAtom } from '@/lib/atoms'
 import { ChevronRight, LogOut, Package } from 'lucide-react'
 import useSession from '@/hooks/useSession'
-import { isFriends } from '@0xcard/lit-action/IPFS.js'
+import { go } from '@0xcard/lit-action/IPFS.js'
 import { getCidLink } from '@/lib/web3Storage'
-import { useEffect } from 'react'
 
 export default function SettingsPage() {
   const [isLoggedIn, loading] = useIsAuthenticated()
@@ -33,6 +34,7 @@ export default function SettingsPage() {
 
   const signOut = async () => {
     await auth?.signOut()
+    ethConnect.disconnectWeb3()
     resetSession()
     router.push('/')
   }
@@ -45,7 +47,7 @@ export default function SettingsPage() {
     const targetCid =
       'k51qzi5uqu5dgfzkz74vel5diqhl3d1wza9talhf56onp3788xjmyj1ua4f5dw'
 
-    const res = await isFriends(userId, targetUserId, cid, targetCid)
+    const res = await go(userId, targetUserId, cid, targetCid)
     console.log('isFriends: ', res)
   }
 
@@ -103,7 +105,7 @@ export default function SettingsPage() {
                     </a>
                     <a
                       className="pl-6 pr-5 py-5 w-full flex justify-between"
-                      href={link}
+                      href={`${link}/me.vcf`}
                       target="_blank"
                       rel="noreferrer noopener"
                     >
@@ -142,53 +144,45 @@ export default function SettingsPage() {
                   </span>
                 </button>
               </List>
-              <p className="mt-20 text-center">Dev Menu</p>
-              <List>
-                <button
-                  className="pl-6 pr-5 py-5 w-full flex justify-between"
-                  onClick={() => deleteUser()}
-                >
-                  <span className="flex items-center">del</span>
-                  <span>
-                    <ChevronRight />
-                  </span>
-                </button>
-              </List>
-              <List>
-                <button
-                  className="pl-6 pr-5 py-5 w-full flex justify-between"
-                  onClick={() => setContact()}
-                >
-                  <span className="flex items-center">Set Contacts</span>
-                  <span>
-                    <ChevronRight />
-                  </span>
-                </button>
-              </List>
-              <List>
-                <button
-                  className="pl-6 pr-5 py-5 w-full flex justify-between"
-                  onClick={() => test()}
-                >
-                  <span className="flex items-center">LitAction</span>
-                  <span>
-                    <ChevronRight />
-                  </span>
-                </button>
-              </List>
+              {process.env.NODE_ENV === 'development' && (
+                <>
+                  <p className="mt-20 text-center font-mono">Dev Menu</p>
+                  <List>
+                    <button
+                      className="pl-6 pr-5 py-5 w-full flex justify-between"
+                      onClick={() => deleteUser()}
+                    >
+                      <span className="flex items-center">Delete user</span>
+                      <span>
+                        <ChevronRight />
+                      </span>
+                    </button>
+                  </List>
+                  <List>
+                    <button
+                      className="pl-6 pr-5 py-5 w-full flex justify-between"
+                      onClick={() => setContact()}
+                    >
+                      <span className="flex items-center">Set Contacts</span>
+                      <span>
+                        <ChevronRight />
+                      </span>
+                    </button>
+                  </List>
+                  <List>
+                    <button
+                      className="pl-6 pr-5 py-5 w-full flex justify-between"
+                      onClick={() => test()}
+                    >
+                      <span className="flex items-center">Test Lit Action</span>
+                      <span>
+                        <ChevronRight />
+                      </span>
+                    </button>
+                  </List>
+                </>
+              )}
             </ul>
-            {/* <button className="btn-outline" onClick={() => signOut()}>
-              SignOut
-            </button>
-            <button className="btn-outline" onClick={() => writeUser()}>
-              Write test
-            </button>
-            <button className="btn-outline" onClick={() => updateUser()}>
-              Update test
-            </button>
-            <button className="btn-outline" onClick={() => deleteUser()}>
-              Del test
-            </button> */}
             <Nav />
           </main>
         </>

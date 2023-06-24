@@ -1,4 +1,4 @@
-import { Share, QrCode, ClipboardCopy } from 'lucide-react'
+import { Share, QrCode, ClipboardCopy, Eye } from 'lucide-react'
 import QRCode from 'react-qr-code'
 import {
   DropdownMenu,
@@ -28,6 +28,8 @@ type Props = {
 export default function ShareButton({ cid, name, klass = '' }: Props) {
   const { toast } = useToast()
 
+  const url: string = `${siteUrl}/${cid}`
+
   const copyToClipboard = async (str: string) => {
     copyClipboard(str)
     await wait(250)
@@ -53,11 +55,23 @@ export default function ShareButton({ cid, name, klass = '' }: Props) {
           <DropdownMenuItem className="px-3 py-2">
             <button
               className="flex items-center"
-              onClick={() => copyToClipboard(`${siteUrl}/${cid}`)}
+              onClick={() => copyToClipboard(url)}
             >
               <ClipboardCopy size={18} className="mr-2" />
               Copy URL
             </button>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem className="px-3 py-2">
+            <a
+              className="flex items-center"
+              href={url}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <Eye size={18} className="mr-2" />
+              Preview
+            </a>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -68,7 +82,7 @@ export default function ShareButton({ cid, name, klass = '' }: Props) {
           </DialogTitle>
           <DialogDescription className="mx-auto">
             <QRCode
-              value={`${siteUrl}/${cid}`}
+              value={url}
               bgColor="transparent"
               fgColor="hsl(var(--primary))"
             />
