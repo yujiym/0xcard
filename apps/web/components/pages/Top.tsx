@@ -43,6 +43,13 @@ export default function TopPage() {
           >
             Start
           </Link>
+          <p className="text-xs mt-1.5 underline decoration-red-300">
+            This is an experimental version.
+            <br />
+            The code and data may heavily change.
+            <br />
+            Please use at your own risk.
+          </p>
         </div>
       </div>
       <div className="flex md:flex-1 flex-auto items-center justify-center bg-primary text-background px-8 overflow-hidden">
